@@ -1,16 +1,18 @@
 package API::Tables;
 use Dancer ':syntax';
 use Spreadsheet::HTML;
+use JSON;
 
 our $VERSION = '0.1';
-our $generator = Spreadsheet::HTML->new( indent => '  ' );
+our $generator = Spreadsheet::HTML->new();
 
-get '/*' => sub {
+# curl -d '{"data":[["foo","bar","baz"],[1,2,3]]}' -H "Content-Type: application/json" -X POST http://www.unlocalhost.com:3000/landscape
+
+post '/*' => sub {
     my ($style) = splat;
     my %valid = map {$_=>1} qw(generate landscape portrait);
     $style = 'generate' unless $valid{$style};
-    content_type 'text/plain';
-    return $generator->$style([0..3],[4..7],[8..11]);
+    return { table => $generator->$style( data => params->{data} ) };
 };
 
 true;
