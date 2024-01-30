@@ -5,13 +5,13 @@
 <script>
 function fetch_board() {
 
-    var params = $.param([
+    var params = [
         {name: "blanks",    value: document.config.blanks.value},
         {name: "attempts",  value: document.config.attempts.value},
         {name: "jquery",    value: "https://www.unlocalhost.com/assets/js/jquery.min.js"},
-    ]);
+    ];
 
-    var url  = 'https://jeffa.unlocalhost.com/sudoku' + '?' + params;
+    var url  = 'https://jeffa.unlocalhost.com/sudoku' + '?' + $.param( params );
     _ajaxGET( url, '#sudoku', 'board' );
 }
 </script>

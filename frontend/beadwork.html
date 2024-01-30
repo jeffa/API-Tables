@@ -5,24 +5,18 @@
 <script>
 function fetch_board() {
 
+    var params = [
+        {name: "preset",    value: document.config.preset.value},
+        {name: "bgcolor",   value: document.config.bgcolor.value},
+        {name: "jquery",    value: "https://www.unlocalhost.com/assets/js/jquery.min.js"}
+    ];
 
     if (document.config.scroll.value) {
-        var params = $.param([
-            {name: "preset",        value: document.config.preset.value},
-            {name: "scroll",        value: 1},
-            {name: "bgdirection",   value: document.config.scroll.value},
-            {name: "bgcolor",       value: document.config.bgcolor.value},
-            {name: "jquery",        value: "https://www.unlocalhost.com/assets/js/jquery.min.js"},
-        ]);
-    } else {
-        var params = $.param([
-            {name: "preset",    value: document.config.preset.value},
-            {name: "bgcolor",   value: document.config.bgcolor.value},
-            {name: "jquery",    value: "https://www.unlocalhost.com/assets/js/jquery.min.js"},
-        ]);
+        params.push({name: "scroll", value: 1});
+        params.push({name: "bgdirection", value: document.config.scroll.value});
     }
 
-    var url  = 'https://jeffa.unlocalhost.com/beadwork' + '?' + params;
+    var url  = 'https://jeffa.unlocalhost.com/beadwork' + '?' + $.param( params );
     _ajaxGET( url, '#beadwork', 'board' );
 }
 </script>

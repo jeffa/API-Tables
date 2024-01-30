@@ -5,15 +5,15 @@
 <script>
 function fetch_board() {
 
-    var params = $.param([
+    var params = [
         {name: "wechsler",  value: document.config.wechsler.value},
         {name: "pad",       value: document.config.pad.value},
         {name: "on",        value: document.config.on.value},
         {name: "off",       value: document.config.off.value},
         {name: "jquery",    value: "https://www.unlocalhost.com/assets/js/jquery.min.js"},
-    ]);
+    ];
 
-    var url  = 'https://jeffa.unlocalhost.com/conway' + '?' + params;
+    var url  = 'https://jeffa.unlocalhost.com/conway' + '?' + $.param( params );
     _ajaxGET( url, '#conway', 'board' );
 }
 </script>
