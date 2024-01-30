@@ -13,7 +13,7 @@ function fetch_board() {
         {name: "jquery",    value: "https://www.unlocalhost.com/assets/js/jquery.min.js"},
     ];
 
-    var url  = 'https://jeffa.unlocalhost.com/conway' + '?' + $.param( params );
+    var url  = ['https://jeffa.unlocalhost.com/conway', $.param( params )].join('?');
     _ajaxGET( url, '#conway', 'board' );
 }
 </script>

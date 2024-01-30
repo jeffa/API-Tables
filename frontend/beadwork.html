@@ -16,7 +16,7 @@ function fetch_board() {
         params.push({name: "bgdirection", value: document.config.scroll.value});
     }
 
-    var url  = 'https://jeffa.unlocalhost.com/beadwork' + '?' + $.param( params );
+    var url  = ['https://jeffa.unlocalhost.com/beadwork', $.param( params )].join('?');
     _ajaxGET( url, '#beadwork', 'board' );
 }
 </script>
