@@ -1,0 +1,43 @@
+<html>
+<head>
+<script src="https://www.unlocalhost.com/assets/js/jquery.min.js"></script>
+<script src="https://www.unlocalhost.com/assets/js/custom_ajax.js"></script>
+<script>
+function fetch_board() {
+
+    var params = $.param([
+        {name: "blanks",    value: document.config.blanks.value},
+        {name: "attempts",  value: document.config.attempts.value},
+        {name: "jquery",    value: "https://www.unlocalhost.com/assets/js/jquery.min.js"},
+    ]);
+
+    var url  = 'https://jeffa.unlocalhost.com/sudoku' + '?' + params;
+    _ajaxGET( url, '#sudoku', 'board' );
+}
+</script>
+</head>
+
+<body>
+<form action="javascript:void(0);" id="config" name="config" class="navbar-config">
+
+  <table>
+  <tr>
+    <td>blanks</td>
+    <td><input type="text" name="blanks" value="50" /></td>
+  </tr>
+  <tr>
+    <td>attempts</td>
+    <td><input type="text" name="attempts" value="2" /></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" name="generate" value="Generate" onClick="javascript: fetch_board()" /></td>
+  </tr>
+  </table>
+
+</form>
+
+<div id="sudoku"></div>
+
+</body>
+</html>

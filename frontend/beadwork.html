@@ -1,0 +1,76 @@
+<html>
+<head>
+<script src="https://www.unlocalhost.com/assets/js/jquery.min.js"></script>
+<script src="https://www.unlocalhost.com/assets/js/custom_ajax.js"></script>
+<script>
+function fetch_board() {
+
+
+    if (document.config.scroll.value) {
+        var params = $.param([
+            {name: "preset",        value: document.config.preset.value},
+            {name: "scroll",        value: 1},
+            {name: "bgdirection",   value: document.config.scroll.value},
+            {name: "bgcolor",       value: document.config.bgcolor.value},
+            {name: "jquery",        value: "https://www.unlocalhost.com/assets/js/jquery.min.js"},
+        ]);
+    } else {
+        var params = $.param([
+            {name: "preset",    value: document.config.preset.value},
+            {name: "bgcolor",   value: document.config.bgcolor.value},
+            {name: "jquery",    value: "https://www.unlocalhost.com/assets/js/jquery.min.js"},
+        ]);
+    }
+
+    var url  = 'https://jeffa.unlocalhost.com/beadwork' + '?' + params;
+    _ajaxGET( url, '#beadwork', 'board' );
+}
+</script>
+</head>
+
+<body>
+<form action="javascript:void(0);" id="config" name="config" class="navbar-config">
+
+  <table>
+  <tr>
+    <td>preset</td>
+    <td>
+        <select name="preset">
+            <option value="">------</option>
+            <option value="mario">Mario</option>
+            <option value="dk">Donkey Kong</option>
+            <option value="1up">1UP</option>
+            <option value="apple">Apple Logo</option>
+            <option value="cartman">Cartman</option>
+            <option value="homer">Homer Simpson</option>
+        </select>
+    </td>
+  </tr>
+  <tr>
+    <td>scroll</td>
+    <td>
+        <select name="scroll">
+            <option value="">------</option>
+            <option value="up">UP</option>
+            <option value="down">DOWN</option>
+            <option value="left">LEFT</option>
+            <option value="right">RIGHT</option>
+        </select>
+    </td>
+  </tr>
+  <tr>
+    <td>bgcolor</td>
+    <td><input type="text" name="bgcolor" value="" /></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" name="generate" value="Generate" onClick="javascript: fetch_board()" /></td>
+  </tr>
+  </table>
+
+</form>
+
+<div id="beadwork"></div>
+
+</body>
+</html>

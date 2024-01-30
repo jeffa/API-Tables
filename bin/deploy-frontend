@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+cp frontend/*.html $API_DEMO_HOME
