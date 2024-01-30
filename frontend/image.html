@@ -1,0 +1,53 @@
+<html>
+<head>
+<script src="https://www.unlocalhost.com/assets/js/jquery.min.js"></script>
+<script src="https://www.unlocalhost.com/assets/js/custom_ajax.js"></script>
+<script>
+function fetch_board() {
+
+    var params = [
+        {name: "file",      value: document.config.file.value},
+        {name: "block",     value: document.config.block.value},
+        {name: "blend",     value: document.config.blend.value},
+        {name: "alpha",     value: document.config.alpha.value},
+        {name: "jquery",    value: "https://www.unlocalhost.com/assets/js/jquery.min.js"},
+    ];
+
+    var url  = ['https://jeffa.unlocalhost.com/generate', $.param( params )].join('?');
+    _ajaxGET( url, '#image', 'image' );
+}
+</script>
+</head>
+
+<body>
+<form action="javascript:void(0);" id="config" name="config" enctype="multipart/form-data" class="navbar-config">
+
+  <table>
+  <tr>
+    <td>file</td>
+    <td><input type="file" name="file" /></td>
+  </tr>
+  <tr>
+    <td>block (2^N)</td> <!-- select of 2^N values) -->
+    <td><input type="text" name="block" value="8" /></td>
+  </tr>
+  <tr>
+    <td>blend (0 or 1)</td> <!-- radio button true/false -->
+    <td><input type="text" name="blend" value="0" /></td>
+  </tr>
+  <tr>
+    <td>alpha</td>
+    <td><input type="text" name="alpha" value="white" /></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input type="submit" name="generate" value="Generate" onClick="javascript: fetch_board()" /></td>
+  </tr>
+  </table>
+
+</form>
+
+<div id="image"></div>
+
+</body>
+</html>
