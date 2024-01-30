@@ -12,7 +12,7 @@ our $generator = Spreadsheet::HTML->new();
 get '/conway' => sub {
     my @valid = qw(wechsler pad size on off colors fade interval alpha block jquery);
     my @params = map { defined(params->{$_}) ? ( $_ => params->{$_} ) : () } @valid;
-    #header('Access-Control-Allow-Origin' => '*');
+    header('Access-Control-Allow-Origin' => 'https://www.unlocalhost.com');
     return { board => $generator->conway( @params ) };
 };
 
@@ -21,7 +21,7 @@ get '/sudoku' => sub {
     my @params = map { defined(params->{$_}) ? ( $_ => params->{$_} ) : () } @valid;
     my $blanks   = params->{blanks}   || 50;
     my $attempts = params->{attempts} || 3;
-    #header('Access-Control-Allow-Origin' => '*');
+    header('Access-Control-Allow-Origin' => 'https://www.unlocalhost.com');
     return { board => $generator->sudoku( @params ) };
 };
 
@@ -30,7 +30,7 @@ post '/*' => sub {
     my ($style) = splat;
     my %valid = map {$_=>1} qw(generate landscape portrait);
     $style = 'generate' unless $valid{$style};
-    #header('Access-Control-Allow-Origin' => '*');
+    header('Access-Control-Allow-Origin' => 'https://www.unlocalhost.com');
     return { spreadsheet => $generator->$style( data => params->{data} ) };
 };
 
