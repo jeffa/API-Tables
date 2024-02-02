@@ -1,5 +1,10 @@
 #!/usr/bin/env perl
-use Dancer;
+use strict;
+use warnings;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Dancer2;
 use API::Tables;
 use File::Pid;
  
@@ -7,4 +12,5 @@ use File::Pid;
 my $pidfile = File::Pid->new({ file => '/home/jeffa/api.pid' });
 $pidfile->write;
 
-dance;
+API::Tables->to_app;
+start;

@@ -1,15 +1,15 @@
 package API::Tables;
-use Dancer ':syntax';
+use Dancer2;
 
 use Data::Dumper;
 use Spreadsheet::HTML;
-use JSON;
+#use JSON;
 
 our $VERSION = '0.1';
 our $generator = Spreadsheet::HTML->new();
 
 hook 'before' => sub {
-    header('Access-Control-Allow-Origin' => 'https://www.unlocalhost.com');
+    response_header('Access-Control-Allow-Origin' => 'https://www.unlocalhost.com');
 };
 
 get '/beadwork' => sub {
