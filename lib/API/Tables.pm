@@ -35,8 +35,12 @@ any ['get', 'post'] => '/*' => sub {
     my ($style) = splat;
     my %valid = map {$_=>1} qw( generate landscape portrait );
     $style = 'generate' unless $valid{$style};
-    my @valid = qw( data file block blend alpha jquery );
+    my @valid = qw( data block blend alpha jquery );
     my @params = map { defined(params->{$_}) ? ( $_ => params->{$_} ) : () } @valid;
+    if (defined(params->{file})) {
+        my $data = request->upload('file');
+        push( @params, ( file => $data->tempname ) );
+    }
     return { spreadsheet => $generator->$style( @params ) };
 };
 
