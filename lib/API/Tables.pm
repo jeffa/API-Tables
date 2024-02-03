@@ -15,13 +15,13 @@ hook 'before' => sub {
 get '/beadwork' => sub {
     my @valid = qw( preset art map bgcolor jquery scroll by bx bgdirection );
     my @params = map { defined(params->{$_}) ? ( $_ => params->{$_} ) : () } @valid;
-    return { board => $generator->beadwork( @params ) };
+    return { board => $generator->beadwork( @params, table => {class=>"table table-bordered"} ) };
 };
 
 get '/conway' => sub {
     my @valid = qw( wechsler pad size on off colors fade interval alpha block jquery );
     my @params = map { defined(params->{$_}) ? ( $_ => params->{$_} ) : () } @valid;
-    return { board => $generator->conway( @params ) };
+    return { board => $generator->conway( @params, table => {class=>"table table-bordered"} ) };
 };
 
 get '/sudoku' => sub {
