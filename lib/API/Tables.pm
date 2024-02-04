@@ -30,6 +30,24 @@ get '/sudoku' => sub {
     return { board => $generator->sudoku( @params ) };
 };
 
+post '/upload' => sub {
+    response_header('Access-Control-Allow-Origin' => 'https://www.unlocalhost.com');
+    my $data = request->upload('file');
+    unless ($data) {
+        return { error => "file param not received" };
+    }
+ 
+    my $dir = path(config->{appdir}, 'uploads');
+    mkdir $dir if not -e $dir;
+ 
+    my $path = path($dir, $data->basename);
+    if (-e $path) {
+        return { error => "'$path' already exists" };
+    }
+    $data->link_to($path);
+    return { success => "'$path' uploaded" };
+};
+
 # curl -d '{"data":[["foo","bar","baz"],[1,2,3]]}' -H "Content-Type: application/json" -X POST http://jeffa.unlocalhost.com/landscape
 any ['get', 'post'] => '/*' => sub {
     my ($style) = splat;
@@ -39,9 +57,15 @@ any ['get', 'post'] => '/*' => sub {
     my @params = map { defined(params->{$_}) ? ( $_ => params->{$_} ) : () } @valid;
     if (defined(params->{file})) {
         my $data = request->upload('file');
-        push( @params, ( file => $data->tempname ) );
+        return { error => "file param not received" } unless $data;
+        my $dir = path(config->{appdir}, 'uploads');
+        mkdir $dir if not -e $dir;
+        my $path = path($dir, $data->basename);
+        $data->link_to($path);
+        push( @params, ( file => $path ) );
     }
     return { spreadsheet => $generator->$style( @params ) };
 };
+
 
 true;
