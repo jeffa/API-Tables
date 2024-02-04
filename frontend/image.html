@@ -30,59 +30,33 @@
     <td><input type="submit" name="generate" value="Generate" onClick="javascript: fetch_board()" /></td>
   </tr>
   </table>
-
 </form>
 
 <div id="image"></div>
 
 <script>
-  let formData = new FormData();
+let formData = new FormData();
 
 async function fetch_board() {
 
     let formData = new FormData();           
     formData.append("file", document.config.fileupload.files[0]);
 
-    window.alert(document.config.fileupload);
-
-    var params = [
+    const params = [
         {name: "block",     value: document.config.block.value},
         {name: "blend",     value: document.config.blend.value},
         {name: "alpha",     value: document.config.alpha.value},
         {name: "jquery",    value: "https://www.unlocalhost.com/assets/js/jquery.min.js"},
     ];
 
-    var url  = ['https://jeffa.unlocalhost.com/generate', $.param( params )].join('?');
-    await fetch(url, {
-            method: "POST",
-            body: formData
-        });
-}
-
-    //_ajaxPOST( url, document.config.file.value, '#image', 'image' );
-
-function _ajaxPOST( url, file, div_id, key, err ) {
-    if (!err) {
-        err = '<div class="alert alert-error">'
-            + '<button type="button" class="close" data-dismiss="alert">&times;</button>'
-            + '<strong>Error!</strong>'
-            + ' Ajax call failed: '
-            + url
-            + '</div>'
-    }
-
-    $.ajax( {
-        url: url,
-        type: 'POST',
+    const url  = ['https://jeffa.unlocalhost.com/generate', $.param( params )].join('?');
+    const response = await fetch(url, {
+        method: "POST",
         body: formData,
-        success: function( data, status, xhr ) {
-            var json = JSON.parse(xhr.responseText);
-            $( div_id ).html( json[key] );
-        },
-        error: function( xhr, status, error ) {
-            $( div_id ).html( err );
-        }
     });
+
+    const data = await response.json();
+    document.getElementById("image").innerHTML = data.spreadsheet;
 }
 </script>
 </body>
