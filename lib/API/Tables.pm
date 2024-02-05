@@ -19,7 +19,7 @@ get '/beadwork' => sub {
 };
 
 get '/conway' => sub {
-    my @valid = qw( wechsler pad size on off colors fade interval alpha block jquery );
+    my @valid = qw( wechsler pad size on off colors fade interval block jquery );
     my @params = map { defined(params->{$_}) ? ( $_ => params->{$_} ) : () } @valid;
     return { board => $generator->conway( @params, table => {class=>"table table-bordered"} ) };
 };
@@ -53,7 +53,7 @@ any ['get', 'post'] => '/*' => sub {
     my ($style) = splat;
     my %valid = map {$_=>1} qw( generate landscape portrait );
     $style = 'generate' unless $valid{$style};
-    my @valid = qw( data block blend alpha jquery );
+    my @valid = qw( data block blend jquery );
     my @params = map { defined(params->{$_}) ? ( $_ => params->{$_} ) : () } @valid;
     if (defined(params->{file})) {
         my $data = request->upload('file');
