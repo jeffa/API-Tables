@@ -35,11 +35,9 @@
 <div id="image"></div>
 
 <script>
-let formData = new FormData();
-
 async function fetch_board() {
 
-    let formData = new FormData();           
+    const formData = new FormData();
     formData.append("file", document.config.fileupload.files[0]);
 
     const params = [
