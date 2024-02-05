@@ -15,7 +15,7 @@ hook 'before' => sub {
 get '/beadwork' => sub {
     my @valid = qw( preset art map bgcolor jquery scroll by bx bgdirection );
     my @params = map { defined(params->{$_}) ? ( $_ => params->{$_} ) : () } @valid;
-    return { board => $generator->beadwork( @params, table => {class=>"table table-bordered"} ) };
+    return { board => $generator->beadwork( @params ) };
 };
 
 get '/conway' => sub {
