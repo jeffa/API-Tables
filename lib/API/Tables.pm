@@ -6,10 +6,11 @@ use Spreadsheet::HTML;
 #use JSON;
 
 our $VERSION = '0.1';
+our $CORS = $ENV{API_Tables_CORS} || 'https://www.unlocalhost.com';
 our $generator = Spreadsheet::HTML->new();
 
 hook 'before' => sub {
-    response_header('Access-Control-Allow-Origin' => 'https://www.unlocalhost.com');
+    response_header('Access-Control-Allow-Origin' => $CORS);
 };
 
 get '/beadwork' => sub {
@@ -53,7 +54,7 @@ any ['get', 'post'] => '/*' => sub {
     my ($style) = splat;
     my %valid = map {$_=>1} qw( generate landscape portrait );
     $style = 'generate' unless $valid{$style};
-    my @valid = qw( data block blend jquery );
+    my @valid = qw( data block blend jquery indent encode encodes scroll );
     my @params = map { defined(params->{$_}) ? ( $_ => params->{$_} ) : () } @valid;
     if (defined(params->{file})) {
         my $data = request->upload('file');
